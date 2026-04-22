@@ -73,7 +73,9 @@ export async function getProducts(): Promise<Product[]> {
     });
 
     if (!res.ok) {
-      throw new Error(`Airtable API error ${res.status}: ${await res.text()}`);
+      const body = await res.text();
+      console.error(`Airtable API error ${res.status}: ${body}`);
+      return [];
     }
 
     const data: AirtableResponse = await res.json();
