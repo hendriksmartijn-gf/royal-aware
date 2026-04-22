@@ -63,7 +63,6 @@ export async function getProducts(): Promise<Product[]> {
 
   do {
     const url = new URL(baseUrl);
-    url.searchParams.set('filterByFormula', '{Active}=TRUE()');
     url.searchParams.set('pageSize', '100');
     if (offset) url.searchParams.set('offset', offset);
 
@@ -83,7 +82,10 @@ export async function getProducts(): Promise<Product[]> {
     offset = data.offset;
   } while (offset);
 
-  return records.map(mapRecord);
+  const all = records.map(mapRecord);
+  console.log(`Airtable: fetched ${all.length} records, ${all.filter(p => p.active).length} active`);
+  // Filter active in JS — more reliable than Airtable formula syntax for checkboxes
+  return all.filter((p) => p.active);
 }
 
 export async function getProduct(id: string): Promise<Product | null> {
