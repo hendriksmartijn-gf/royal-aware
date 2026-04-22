@@ -57,7 +57,7 @@ export async function getProducts(): Promise<Product[]> {
     return [];
   }
 
-  const baseUrl = `https://api.airtable.com/v0/${baseId}/Products`;
+  const baseUrl = `https://api.airtable.com/v0/${baseId}/tblCyyli7PN6ykVc8`;
   const records: AirtableRecord[] = [];
   let offset: string | undefined;
 
@@ -92,7 +92,7 @@ export async function getProduct(id: string): Promise<Product | null> {
 
   if (!token || !baseId) return null;
 
-  const url = `https://api.airtable.com/v0/${baseId}/Products/${id}`;
+  const url = `https://api.airtable.com/v0/${baseId}/tblCyyli7PN6ykVc8/${id}`;
 
   const res = await fetch(url, {
     headers: { Authorization: `Bearer ${token}` },
