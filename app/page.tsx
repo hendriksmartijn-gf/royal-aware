@@ -2,7 +2,10 @@ import Image from 'next/image';
 import { getProducts } from '@/lib/airtable';
 import { CatalogClient } from '@/components/CatalogClient';
 
-export const revalidate = 3600;
+// Force dynamic rendering so a bad build-time fetch never bakes an empty
+// page into the static output. Data caching (1 h) is handled at the
+// fetch() level inside lib/airtable.ts.
+export const dynamic = 'force-dynamic';
 
 export default async function CatalogPage() {
   const products = await getProducts();

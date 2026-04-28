@@ -6,7 +6,7 @@ import { ChannelBadge } from '@/components/ChannelBadge';
 import { ShareButton } from '@/components/ShareButton';
 import type { Channel } from '@/types/product';
 
-export const revalidate = 3600;
+export const dynamic = 'force-dynamic';
 
 interface PageProps {
   params: { id: string };
