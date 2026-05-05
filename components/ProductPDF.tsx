@@ -12,8 +12,8 @@ import {
 import type { Product, Channel } from '@/types/product';
 
 // ─── Colours ──────────────────────────────────────────────────────────────────
-const NAVY  = '#1C2B4A';
-const AMBER = '#C4973A';
+const NAVY  = '#1E3765';   // brand primary
+const AMBER = '#B7C728';   // brand secondary (lime)
 const LIGHT = '#F5F7FA';
 const GRAY  = '#6B7280';
 const RULE  = '#E5E7EB';
