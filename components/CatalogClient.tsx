@@ -95,8 +95,40 @@ export function CatalogClient({ products }: { products: Product[] }) {
       {/* ── Sticky filter bar ─────────────────────────────────── */}
       <div className="sticky top-0 z-10 bg-white border-b border-gray-200 shadow-sm">
 
-        {/* Search + Select toggle */}
-        <div className="px-4 pt-4 pb-3 flex items-center gap-3">
+        {/* Channel chips */}
+        <div className="flex gap-2 px-4 pt-3 pb-2 overflow-x-auto no-scrollbar">
+          {CHANNELS.map(({ label, key }) => (
+            <button key={key} onClick={() => setChannel(key)}
+              className={`flex-none px-4 py-1.5 rounded-full text-label-sm font-bold transition
+                whitespace-nowrap min-h-[36px]
+                ${channel === key
+                  ? 'bg-primary text-white'
+                  : 'bg-gray-100 text-primary/70 hover:bg-primary/10'
+                }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+
+        {/* Category chips */}
+        <div className="flex gap-2 px-4 pb-3 overflow-x-auto no-scrollbar">
+          {CATEGORIES.map(({ label, key }) => (
+            <button key={key} onClick={() => setCategory(key)}
+              className={`flex-none px-4 py-1.5 rounded-full text-label-sm font-bold transition
+                whitespace-nowrap min-h-[36px]
+                ${category === key
+                  ? 'bg-secondary text-white'
+                  : 'bg-gray-100 text-primary/70 hover:bg-secondary/20'
+                }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+
+        {/* Search + Select toggle — below filters */}
+        <div className="px-4 pb-3 flex items-center gap-3">
           <div className="relative flex-1">
             <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none"
               fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -130,38 +162,6 @@ export function CatalogClient({ products }: { products: Product[] }) {
             </svg>
             {selectMode ? 'Done' : 'Select'}
           </button>
-        </div>
-
-        {/* Channel chips */}
-        <div className="flex gap-2 px-4 pb-2 overflow-x-auto no-scrollbar">
-          {CHANNELS.map(({ label, key }) => (
-            <button key={key} onClick={() => setChannel(key)}
-              className={`flex-none px-4 py-1.5 rounded-full text-label-sm font-bold transition
-                whitespace-nowrap min-h-[36px]
-                ${channel === key
-                  ? 'bg-primary text-white'
-                  : 'bg-gray-100 text-primary/70 hover:bg-primary/10'
-                }`}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-
-        {/* Category chips */}
-        <div className="flex gap-2 px-4 pb-3 overflow-x-auto no-scrollbar">
-          {CATEGORIES.map(({ label, key }) => (
-            <button key={key} onClick={() => setCategory(key)}
-              className={`flex-none px-4 py-1.5 rounded-full text-label-sm font-bold transition
-                whitespace-nowrap min-h-[36px]
-                ${category === key
-                  ? 'bg-secondary text-white'
-                  : 'bg-gray-100 text-primary/70 hover:bg-secondary/20'
-                }`}
-            >
-              {label}
-            </button>
-          ))}
         </div>
       </div>
 

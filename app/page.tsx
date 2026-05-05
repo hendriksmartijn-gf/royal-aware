@@ -13,18 +13,15 @@ export default async function CatalogPage() {
       <header className="bg-white border-b border-gray-100 shadow-sm">
         {/* Lime accent top strip */}
         <div className="h-1 bg-secondary w-full" />
-        <div className="flex items-center justify-between px-4 py-3">
-          {/* Logo */}
+        <div className="flex flex-col items-center py-4 gap-1">
+          {/* Logo — centred, 2× size */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="https://www.royal-aware.com/nl/assets/images/logo-aware.svg"
             alt="Royal A-ware"
-            height={48}
-            width={41}
-            className="h-12 w-auto"
+            className="h-24 w-auto"
           />
-          {/* Right: label */}
-          <span className="text-label-md font-bold text-primary/50 uppercase tracking-widest">
+          <span className="text-label-sm font-bold text-primary/40 uppercase tracking-widest">
             Product Catalog
           </span>
         </div>
