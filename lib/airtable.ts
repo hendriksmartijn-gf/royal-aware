@@ -63,6 +63,7 @@ export async function getProducts(): Promise<Product[]> {
 
   do {
     const url = new URL(baseUrl);
+    url.searchParams.set('view', 'viwqqeEHauYEl4szY'); // use Airtable view sort & filter
     url.searchParams.set('pageSize', '100');
     if (offset) url.searchParams.set('offset', offset);
 

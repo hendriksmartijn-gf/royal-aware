@@ -34,7 +34,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
   ].filter(s => s.value);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#F0F3F7]">
 
       {/* Back nav */}
       <div className="sticky top-0 z-10 bg-white border-b border-gray-100 shadow-sm">
@@ -77,7 +77,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
       </div>
 
       {/* Body */}
-      <div className="px-4 py-6 space-y-6 max-w-2xl mx-auto">
+      <div className="px-4 py-6 space-y-6 max-w-2xl mx-auto bg-white shadow-sm mt-4 mb-8">
 
         {/* Category + name + channels */}
         <div className="border-l-4 border-secondary pl-4">

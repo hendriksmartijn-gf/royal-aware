@@ -93,7 +93,7 @@ export function CatalogClient({ products }: { products: Product[] }) {
     <div className={selectMode ? 'pb-28' : ''}>
 
       {/* ── Sticky filter bar ─────────────────────────────────── */}
-      <div className="sticky top-0 z-10 bg-white border-b border-gray-100 shadow-sm">
+      <div className="sticky top-0 z-10 bg-white border-b border-gray-200 shadow-sm">
 
         {/* Search + Select toggle */}
         <div className="px-4 pt-4 pb-3 flex items-center gap-3">
