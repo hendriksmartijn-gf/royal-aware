@@ -38,11 +38,15 @@ function matchesCategory(product: Product, category: string): boolean {
 }
 
 export function CatalogClient({ products }: { products: Product[] }) {
+  // All useState / useTransition first — hooks must never be interleaved
   const [query,       setQuery]      = useState('');
   const [channel,     setChannel]    = useState<Channel | 'All'>('All');
   const [category,    setCategory]   = useState<string>('All');
+  const [selectMode,  setSelectMode] = useState(false);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [, startTransition] = useTransition();
 
-  // Derive categories from actual Airtable values — never mismatches
+  // Derive categories from actual Airtable values — never mismatches hardcoded strings
   const categories = useMemo(() => {
     const seen = new Set<string>();
     const list: string[] = [];
@@ -54,9 +58,6 @@ export function CatalogClient({ products }: { products: Product[] }) {
     }
     return list.sort();
   }, [products]);
-  const [selectMode,  setSelectMode] = useState(false);
-  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
-  const [, startTransition] = useTransition();
 
   const filtered = useMemo(() =>
     products.filter(p =>

@@ -40,10 +40,11 @@ export async function GET() {
     AIRTABLE_BASE_ID: baseId,
     // Show field keys + Active value of first 5 records (no sensitive data)
     sample: records.map((r: { id: string; fields: Record<string, unknown> }) => ({
-      id:     r.id,
-      name:   r.fields['Name'] ?? '(no Name field)',
-      Active: r.fields['Active'] ?? '(field absent / false)',
-      fieldKeys: Object.keys(r.fields),
+      id:              r.id,
+      name:            r.fields['Name']             ?? '(no Name field)',
+      Active:          r.fields['Active']            ?? '(absent/false)',
+      productCategory: r.fields['Product Category'] ?? '(absent/empty)',
+      fieldKeys:       Object.keys(r.fields),
     })),
   });
 }
