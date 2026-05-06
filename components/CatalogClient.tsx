@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo, useTransition } from 'react';
-import type { Product, Channel, ProductCategory } from '@/types/product';
+import type { Product, Channel } from '@/types/product';
 import { ProductCard } from './ProductCard';
 import { ExportButton } from './ExportButton';
 
@@ -11,15 +11,6 @@ const CHANNELS: { label: string; key: Channel | 'All' }[] = [
   { label: 'Export',       key: 'Export' },
   { label: 'Foodservice',  key: 'Foodservice' },
   { label: 'Food Industry',key: 'Food Industry' },
-];
-
-const CATEGORIES: { label: string; key: ProductCategory | 'All' }[] = [
-  { label: 'All',               key: 'All' },
-  { label: 'Packaged Cheese',   key: 'Packaged Cheese' },
-  { label: 'Whole Packed',      key: 'Whole Packed' },
-  { label: 'Processed & Smoked',key: 'Processed & Smoked' },
-  { label: 'Dried Cheese',      key: 'Dried Cheese' },
-  { label: 'Cream',             key: 'Cream' },
 ];
 
 function matchesSearch(product: Product, query: string): boolean {
@@ -41,7 +32,7 @@ function matchesChannel(product: Product, channel: Channel | 'All'): boolean {
   return true;
 }
 
-function matchesCategory(product: Product, category: ProductCategory | 'All'): boolean {
+function matchesCategory(product: Product, category: string): boolean {
   if (category === 'All') return true;
   return product.productCategory === category;
 }
@@ -49,7 +40,20 @@ function matchesCategory(product: Product, category: ProductCategory | 'All'): b
 export function CatalogClient({ products }: { products: Product[] }) {
   const [query,       setQuery]      = useState('');
   const [channel,     setChannel]    = useState<Channel | 'All'>('All');
-  const [category,    setCategory]   = useState<ProductCategory | 'All'>('All');
+  const [category,    setCategory]   = useState<string>('All');
+
+  // Derive categories from actual Airtable values — never mismatches
+  const categories = useMemo(() => {
+    const seen = new Set<string>();
+    const list: string[] = [];
+    for (const p of products) {
+      if (p.productCategory && !seen.has(p.productCategory)) {
+        seen.add(p.productCategory);
+        list.push(p.productCategory);
+      }
+    }
+    return list.sort();
+  }, [products]);
   const [selectMode,  setSelectMode] = useState(false);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [, startTransition] = useTransition();
@@ -111,18 +115,18 @@ export function CatalogClient({ products }: { products: Product[] }) {
           ))}
         </div>
 
-        {/* Category chips */}
+        {/* Category chips — built from actual Airtable values */}
         <div className="flex gap-2 px-4 pb-3 overflow-x-auto no-scrollbar">
-          {CATEGORIES.map(({ label, key }) => (
-            <button key={key} onClick={() => setCategory(key)}
+          {['All', ...categories].map((cat) => (
+            <button key={cat} onClick={() => setCategory(cat)}
               className={`flex-none px-4 py-1.5 rounded-full text-label-sm font-bold transition
                 whitespace-nowrap min-h-[36px]
-                ${category === key
+                ${category === cat
                   ? 'bg-secondary text-white'
                   : 'bg-gray-100 text-primary/70 hover:bg-secondary/20'
                 }`}
             >
-              {label}
+              {cat}
             </button>
           ))}
         </div>
